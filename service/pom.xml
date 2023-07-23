@@ -28,11 +28,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-netflix-eureka-server</artifactId>
-			<version>4.0.1</version>
-		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
