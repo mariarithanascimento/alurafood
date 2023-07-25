@@ -1,6 +1,9 @@
 package br.com.alurafood.pagamentos.service;
 
+import java.util.Optional;
+
 import br.com.alurafood.pagamentos.DTO.PagamentoDTO;
+import br.com.alurafood.pagamentos.http.PedidoClient;
 import br.com.alurafood.pagamentos.model.Pagamento;
 import br.com.alurafood.pagamentos.model.Status;
 import br.com.alurafood.pagamentos.repository.PagamentoRepository;
@@ -16,6 +19,8 @@ public class PagamentoService {
     @Autowired
     private PagamentoRepository repository;
 
+    @Autowired
+    private PedidoClient pedido;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -81,5 +86,25 @@ public class PagamentoService {
      */
     public void excluirPagamento(Long id) {
         repository.deleteById(id);
+    }
+
+    /*
+   Vamos ter o método chamado confirmarPagamento que quando chamarmos passando o ID do pagamento,
+   recuperamos o pagamento no banco de dados, setamos o status como confirmado, salvamos o pagamento e,
+   em seguida, chamamos o client de pedido para fazer a atualização passando o ID do pedido.
+
+   Visto que passamos o ID do pedido e quem tem essa informação é o pagamento.get()getPedidoId(). Esse getter
+    é que possui a informação do pedido.
+   */
+    public void confirmarPagamento(Long id){
+        Optional<Pagamento> pagamento = repository.findById(id);
+
+        if (!pagamento.isPresent()) {
+            throw new EntityNotFoundException();
+        }
+
+        pagamento.get().setStatus(Status.CONFIRMADO);
+        repository.save(pagamento.get());
+        pedido.atualizaPagamento(pagamento.get().getPedidoId());
     }
 }
