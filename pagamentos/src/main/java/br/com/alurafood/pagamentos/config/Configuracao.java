@@ -9,6 +9,7 @@ public class Configuracao {
 
     @Bean
     public ModelMapper obterModelMapper(){
+
         return new ModelMapper();
     }
 }

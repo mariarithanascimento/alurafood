@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PagamentoDTO {
+
     private Long id;
     private double valor; //Antes do double estava como BigDecimal
     private String nome;

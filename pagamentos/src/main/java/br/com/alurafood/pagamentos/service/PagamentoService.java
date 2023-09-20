@@ -85,6 +85,7 @@ public class PagamentoService {
     microsserviço já está criando forma e quase chegando ao fim.
      */
     public void excluirPagamento(Long id) {
+
         repository.deleteById(id);
     }
 
