@@ -23,6 +23,7 @@ public class PedidoController {
         @GetMapping()
         public List<PedidoDto> listarTodos() {
             return service.obterTodos();
+
         }
 
         @GetMapping("/{id}")
